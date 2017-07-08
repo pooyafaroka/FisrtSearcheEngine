@@ -517,4 +517,82 @@ public class sqlCommand
     {
         return " " + par1 + "=" + val1 + ", " + par2 + "=N'" + val2 + "'";
     }
+
+    internal bool IsNull(string table_name, int index, string make_where)
+    {
+        bool ret = false;
+
+        SqlConnection sc = new SqlConnection();
+        SqlCommand cmd = new SqlCommand();
+
+        sc.ConnectionString = sqlCommand.StringConnection;
+        cmd.Connection = sc;
+        cmd.CommandText = sqlCommand.Select(table_name, make_where);
+
+        cmd.CommandType = CommandType.Text;
+
+        try
+        {
+            sc.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                if (Convert.IsDBNull(reader[index]))
+                {
+                    ret = true;
+                }
+                else
+                {
+                    ret = false;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            ret = false;
+        }
+
+        sc.Close();
+        cmd.Dispose();
+
+        return ret;
+
+    }
+
+    internal string COUNT(string table_name)
+    {
+        string ret = "";
+
+        SqlConnection sc = new SqlConnection();
+        SqlCommand cmd = new SqlCommand();
+
+        sc.ConnectionString = sqlCommand.StringConnection;
+        cmd.Connection = sc;
+        cmd.CommandText = "select COUNT(*) from " + table_name;
+
+        cmd.CommandType = CommandType.Text;
+
+        try
+        {
+            sc.Open();
+            string ack = Convert.ToString(cmd.ExecuteScalar());
+            if (ack == "")
+            {
+                ret = "NaN";
+            }
+            else
+            {
+                ret = ack;
+            }
+        }
+        catch (Exception ex)
+        {
+            ret = "ERROR";
+        }
+
+        sc.Close();
+        cmd.Dispose();
+
+        return ret;
+    }
 }
