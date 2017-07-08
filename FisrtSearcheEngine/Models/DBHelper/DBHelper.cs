@@ -12,7 +12,7 @@ public class DBHelper
         bool ret = false;
 
         X_DBASE x_dbase = Initial();
-        x_dbase.sqlCommand.CommandText = sqlCommand.Select(sqlCommand.Hacked_Registered_Users.TABLE_NAME);
+        x_dbase.sqlCommand.CommandText = sqlCommand.Select(sqlCommand.Apk_Activity.TABLE_NAME);
 
         try
         {

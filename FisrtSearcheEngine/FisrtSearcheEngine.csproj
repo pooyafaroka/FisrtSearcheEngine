@@ -117,6 +117,8 @@
     <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DBHelper\DBHelper.cs" />
+    <Compile Include="Models\DBHelper\sqlCommand.cs" />
     <Compile Include="TelegramApi\Adapter\Actions\Action_EditMessageText.cs" />
     <Compile Include="TelegramApi\Adapter\Actions\Action_GetUserProfilePhotos.cs" />
     <Compile Include="TelegramApi\Adapter\Actions\Action_SendDocument.cs" />
